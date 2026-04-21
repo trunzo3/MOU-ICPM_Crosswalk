@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MOU Element → ICPM Leadership Behavior Crosswalk</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Source+Serif+4:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#1e293b;--navy-deep:#0f172a;
+  --eng-bg:#dbeafe;--eng-border:#3b82f6;--eng-text:#1e40af;
+  --team-bg:#d1fae5;--team-border:#10b981;--team-text:#065f46;
+  --acc-bg:#fef3c7;--acc-border:#f59e0b;--acc-text:#92400e;
+  --slate-50:#f8fafc;--slate-100:#f1f5f9;--slate-200:#e2e8f0;
+  --slate-300:#cbd5e1;--slate-400:#94a3b8;--slate-500:#64748b;
+  --slate-700:#334155;--slate-800:#1e293b;
+  --green-50:#f0fdf4;--green-400:#4ade80;--green-500:#22c55e;--green-800:#166534;
+  --blue-400:#60a5fa;
+}
+body{font-family:'DM Sans','Segoe UI',system-ui,sans-serif;background:#fff;color:var(--slate-700);line-height:1.6}
+.serif{font-family:'Source Serif 4',Georgia,serif}
+.wrap{max-width:840px;margin:0 auto}
+
+/* Header */
+.header{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-deep) 100%);padding:28px 28px 22px}
+.header-badge{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.header-badge svg{color:var(--blue-400)}
+.header-badge span{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--blue-400);text-transform:uppercase}
+.header h1{font-size:24px;font-weight:800;color:#fff;line-height:1.25}
+.header .sub{margin-top:8px;font-size:14px;color:var(--slate-400);line-height:1.5}
+.header .byline{margin-top:10px;font-size:12px;color:var(--slate-500)}
+
+/* Tabs */
+.tab-bar{background:var(--slate-50);border-bottom:1px solid var(--slate-200);overflow-x:auto;-webkit-overflow-scrolling:touch;white-space:nowrap;padding:0 16px}
+.tab-bar-inner{display:flex;gap:0}
+.tab-btn{background:none;border:none;cursor:pointer;padding:12px 16px;font-size:13px;font-weight:500;color:var(--slate-500);border-bottom:3px solid transparent;font-family:'DM Sans',sans-serif;white-space:nowrap;transition:all .2s}
+.tab-btn.active{font-weight:700;color:var(--navy);border-bottom-color:var(--navy)}
+.tab-btn:hover{color:var(--navy)}
+
+/* Content */
+.content{padding:24px 20px 40px}
+.tab-panel{display:none;animation:fadeIn .3s ease}
+.tab-panel.active{display:block}
+.tab-lead{margin-bottom:16px;font-size:13px;color:var(--slate-500);font-weight:500}
+
+/* Cards */
+.card{background:#fff;border-radius:12px;border:1px solid var(--slate-200);margin-bottom:16px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06);animation:fadeSlideIn .35s ease both}
+.card-header{padding:18px 22px;cursor:pointer;display:flex;align-items:flex-start;gap:14px;user-select:none}
+.card-num{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:10px;background:var(--navy);color:#fff;font-weight:800;font-size:15px;flex-shrink:0;margin-top:2px}
+.card-num.serif{font-family:'Source Serif 4',Georgia,serif}
+.card-body{flex:1}
+.card-title{font-weight:700;font-size:16px;color:var(--navy);line-height:1.3}
+.card-governs{font-size:13.5px;color:var(--slate-500);margin-top:4px;line-height:1.45}
+.card-badges{margin-top:8px}
+.badge{display:inline-block;padding:2px 10px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:.05em;margin-right:6px;margin-bottom:4px}
+.badge-engagement{background:var(--eng-bg);color:var(--eng-text);border:1.5px solid var(--eng-border)}
+.badge-teaming{background:var(--team-bg);color:var(--team-text);border:1.5px solid var(--team-border)}
+.badge-accountability{background:var(--acc-bg);color:var(--acc-text);border:1.5px solid var(--acc-border)}
+.card-chevron{color:var(--slate-400);flex-shrink:0;margin-top:8px;transition:transform .2s ease}
+.card.open .card-chevron{transform:rotate(90deg)}
+.card-detail{display:none;padding:0 22px 22px 72px;animation:fadeIn .25s ease}
+.card.open .card-detail{display:block}
+.detail-label{font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:#475569;margin-bottom:8px}
+.behavior-list{margin:0;padding-left:18px;list-style-type:'▸ ';color:var(--slate-700);font-size:14px;line-height:1.7}
+.behavior-list li{margin-bottom:4px}
+.question-box{background:var(--slate-50);border:1px solid var(--slate-200);border-left:4px solid var(--navy);border-radius:8px;padding:14px 18px;margin-top:16px}
+.question-box .detail-label{color:var(--navy);display:flex;align-items:center;gap:6px}
+.question-box p{margin:0 0 8px;font-size:14px;color:var(--slate-700);font-style:italic;line-height:1.6}
+.question-box p:last-child{margin-bottom:0}
+
+/* Overview */
+.overview-text{font-size:15px;color:var(--slate-700);line-height:1.7;max-width:720px;margin:0 auto}
+.overview-text p{margin-bottom:14px}
+.flow-row{display:flex;align-items:center;justify-content:center;gap:0;margin:32px auto;flex-wrap:wrap;max-width:720px}
+.flow-box{border-radius:12px;padding:16px 20px;text-align:center;min-width:150px;flex:0 1 180px}
+.flow-box .label{font-weight:700;font-size:14px;color:var(--navy)}
+.flow-box .sub{font-size:12px;color:var(--slate-500);margin-top:2px}
+.flow-arrow{color:var(--slate-400);margin:0 8px;flex-shrink:0;font-size:22px}
+.cat-grid{display:flex;gap:12px;flex-wrap:wrap;max-width:720px;margin:0 auto}
+.cat-card{flex:1 1 200px;border-radius:10px;padding:14px 16px}
+.cat-card .cat-label{font-weight:800;font-size:12px;letter-spacing:.05em}
+.cat-card .cat-desc{font-size:13px;margin-top:4px;line-height:1.5;opacity:.85}
+.info-box{background:var(--slate-50);border-radius:10px;padding:16px 20px;border:1px solid var(--slate-200);margin-top:28px;max-width:720px;margin-left:auto;margin-right:auto;font-size:13px;color:var(--slate-500);line-height:1.6}
+.info-box strong{color:var(--slate-700)}
+.section-label{font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:#475569;margin-bottom:12px;margin-top:32px;max-width:720px;margin-left:auto;margin-right:auto}
+
+/* Cross-Cutting */
+.cross-intro{background:linear-gradient(135deg,var(--eng-bg) 0%,var(--team-bg) 100%);border-radius:12px;padding:20px 24px;margin-bottom:24px;border:1px solid #93c5fd;max-width:720px;margin-left:auto;margin-right:auto}
+.cross-intro .label{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--eng-text);margin-bottom:6px}
+.cross-intro p{margin:0;font-size:14px;color:var(--slate-700);line-height:1.6}
+.cross-note{max-width:720px;margin:8px auto 0}
+
+/* Self-Assessment */
+.sa-header{text-align:center;margin-bottom:28px;max-width:720px;margin-left:auto;margin-right:auto}
+.sa-header h2{margin:8px 0 0;font-size:20px;color:var(--navy)}
+.sa-header p{font-size:14px;color:var(--slate-500);margin-top:6px;line-height:1.5}
+.sa-counter{display:inline-block;border-radius:999px;padding:6px 18px;font-size:14px;font-weight:700;margin-top:8px;transition:all .3s}
+.sa-group{margin-bottom:20px;max-width:720px;margin-left:auto;margin-right:auto}
+.sa-group-title{font-weight:700;font-size:14px;color:var(--navy);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.sa-group-num{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:7px;background:var(--navy);color:#fff;font-size:12px;font-weight:800;flex-shrink:0}
+.sa-item{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;cursor:pointer;border-radius:8px;margin-bottom:4px;border:1px solid var(--slate-200);background:#fff;transition:all .2s}
+.sa-item.checked{background:var(--green-50);border-color:var(--green-400)}
+.sa-check{width:20px;height:20px;border-radius:6px;flex-shrink:0;margin-top:1px;border:2px solid var(--slate-300);display:flex;align-items:center;justify-content:center;transition:all .2s;background:#fff}
+.sa-item.checked .sa-check{border:none;background:var(--green-500)}
+.sa-check svg{display:none}
+.sa-item.checked .sa-check svg{display:block}
+.sa-text{font-size:14px;color:var(--slate-700);line-height:1.55;font-style:italic}
+
+/* Footer */
+.footer{background:var(--slate-100);border-top:1px solid var(--slate-200);padding:16px 20px}
+.footer p{font-size:11.5px;color:var(--slate-500);line-height:1.6}
+
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes fadeSlideIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:600px){
+  .header h1{font-size:20px}
+  .flow-row{flex-direction:column;gap:8px}
+  .flow-arrow{transform:rotate(90deg)}
+  .card-detail{padding-left:22px}
+  .cat-grid{flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+<div class="wrap">
+  <div class="header-badge">
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>
+    <span>AB 2083 System of Care</span>
+  </div>
+  <h1 class="serif">MOU Element → ICPM Leadership Behavior Crosswalk</h1>
+  <p class="sub">Mapping AB 2083 System of Care governance structure to ICPM practice behaviors for ILT leaders</p>
+  <p class="byline">Prepared by Anthony Trunzo&nbsp;&nbsp;|&nbsp;&nbsp;IQmeetEQ — AI-Assisted Analysis</p>
+</div>
+</div>
+
+<!-- TABS -->
+<div class="tab-bar">
+<div class="wrap tab-bar-inner" id="tabBar"></div>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+<div class="wrap">
+
+  <!-- OVERVIEW -->
+  <div class="tab-panel active" id="panel-0">
+    <div class="overview-text">
+      <p>California's AB 2083 requires each county to establish a Children and Youth System of Care (CYSOC) governed by a Memorandum of Understanding with <strong>11 elements</strong> that define the architecture of interagency collaboration. The <strong>Integrated Core Practice Model (ICPM)</strong> defines how leaders and staff actually behave within that architecture.</p>
+      <p>This crosswalk maps each MOU element to the specific ICPM leadership behaviors it activates — and poses the self-assessment questions that tell a leader whether they're practicing what the system requires.</p>
+    </div>
+
+    <div class="flow-row">
+      <div class="flow-box" style="background:var(--slate-100);border:1.5px solid var(--slate-300)">
+        <div style="color:var(--navy);margin-bottom:6px"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="14" y="3" rx="1"/><path d="M10 21V8a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1H3"/></svg></div>
+        <div class="label">MOU Element</div><div class="sub">The architecture</div>
+      </div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-box" style="background:var(--eng-bg);border:1.5px solid #93c5fd">
+        <div style="color:var(--navy);margin-bottom:6px"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <div class="label">ICPM Behavior</div><div class="sub">The practice standard</div>
+      </div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-box" style="background:var(--acc-bg);border:1.5px solid #fcd34d">
+        <div style="color:var(--navy);margin-bottom:6px"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></div>
+        <div class="label">Leader's Question</div><div class="sub">The mirror</div>
+      </div>
+    </div>
+
+    <div class="section-label">ICPM Behavior Categories</div>
+    <div class="cat-grid">
+      <div class="cat-card" style="background:var(--eng-bg);border:1.5px solid var(--eng-border)">
+        <div class="cat-label" style="color:var(--eng-text)">ENGAGEMENT</div>
+        <div class="cat-desc" style="color:var(--eng-text)">Listening, transparency, strengths-based communication, and authentic relationship with youth, families, and partners.</div>
+      </div>
+      <div class="cat-card" style="background:var(--team-bg);border:1.5px solid var(--team-border)">
+        <div class="cat-label" style="color:var(--team-text)">TEAMING</div>
+        <div class="cat-desc" style="color:var(--team-text)">Shared decision-making, cross-agency collaboration, and building trust across organizational boundaries.</div>
+      </div>
+      <div class="cat-card" style="background:var(--acc-bg);border:1.5px solid var(--acc-border)">
+        <div class="cat-label" style="color:var(--acc-text)">ACCOUNTABILITY</div>
+        <div class="cat-desc" style="color:var(--acc-text)">Monitoring fidelity, using data transparently, owning decisions, and driving continuous improvement.</div>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <strong>How to use this tool:</strong> Navigate the Governance and Operational tabs to explore each MOU element and its activated ICPM behaviors. Use the Self-Assessment tab as a personal reflection mirror — the questions are written in first person because governance is personal.
+    </div>
+  </div>
+
+  <!-- GOVERNANCE -->
+  <div class="tab-panel" id="panel-1">
+    <div class="tab-lead">Governance Elements define <em>who decides, who knows, and who's at the table</em>.</div>
+    <div id="govCards"></div>
+  </div>
+
+  <!-- OPERATIONAL -->
+  <div class="tab-panel" id="panel-2">
+    <div class="tab-lead">Operational Elements define <em>how the system actually functions day to day</em>.</div>
+    <div id="opsCards"></div>
+  </div>
+
+  <!-- CROSS-CUTTING -->
+  <div class="tab-panel" id="panel-3">
+    <div class="cross-intro">
+      <div class="label">Cross-Cutting Element</div>
+      <p>Tribal Engagement is not a standalone MOU element — it is a cross-cutting commitment that should permeate all 11 elements. This section identifies the specific ICPM behaviors and leader self-assessment questions that apply <em>across</em> the entire system architecture.</p>
+    </div>
+    <div id="crossCard"></div>
+    <div class="info-box cross-note">
+      <strong>Integration note:</strong> Each of the 11 MOU elements should be evaluated through the lens of tribal engagement. When reviewing governance, data sharing, placement decisions, or resource management, ask: "Have we meaningfully included our tribal partners in this element — or is engagement limited to a seat at the table?"
+    </div>
+  </div>
+
+  <!-- SELF-ASSESSMENT -->
+  <div class="tab-panel" id="panel-4">
+    <div class="sa-header">
+      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/></svg>
+      <h2 class="serif">Leader Self-Assessment Mirror</h2>
+      <p>These questions aren't a compliance checklist — they're a mirror. Read each one slowly.<br>Check the ones where your honest answer is <em>yes</em>.</p>
+      <div class="sa-counter" id="saCounter">0 / 0 affirmed</div>
+    </div>
+    <div id="saGroups"></div>
+  </div>
+
+</div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+<div class="wrap">
+  <p>Source: ICPM Enhanced Leadership Training Handout (CDSS) crosswalked against AB 2083 MOU 11-Element Blueprint. The Leader's Question column is designed for ILT self-assessment — a leader who can answer <em>yes</em> to these questions is practicing ICPM-aligned governance.</p>
+</div>
+</div>
+
+<script>
+const TABS = ["Overview","Governance (1–6)","Operational (7–11)","Cross-Cutting","Self-Assessment"];
+
+const ELEMENTS = [
+  {num:1,name:"Interagency Leadership Team (ILT)",group:"gov",governs:"Who governs the system, how they meet, how decisions are made, who owns the agenda.",categories:["teaming","accountability"],behaviors:["Use the MOU to authentically create a local CYSOC that achieves the shared vision","Meet regularly with the ILT, demonstrating willingness to change your position based on information received","Pause and reflect before making organizational decisions — should a partner be informed or consulted first?","Model desired behaviors for partner leaders, building trust and positive regard","ILT meetings and processes model inclusive and shared decision-making","Engage with peers from other counties to share best practices"],questions:["Am I showing up ready to have my mind changed? Or am I arriving with decisions already made?","Do I consult partners before making decisions that affect the system, even small ones like canceling a meeting?","Is my behavior in this room the behavior I want my staff to replicate?"]},
+  {num:2,name:"Implementation of ICPM",group:"gov",governs:"How partners commit to shared practice values, cross-training, and embedding ICPM across agencies.",categories:["engagement","teaming","accountability"],behaviors:["Support development and delivery of integrated training curricula for cross-agency stakeholders","Resist silo-based staff development except for discipline-specific topics","Ensure staff understand the link between the ICPM and what is expected in day-to-day work","Use supervision and coaching, including field observation, to ensure ICPM fidelity","Accept personal, agency, and interagency responsibility for ICPM implementation","Foster leadership by staff at all levels in the practice model"],questions:["Can my staff articulate what the ICPM expects of them — not as theory, but in their daily interactions?","When was the last time I observed practice in the field, not just reviewed reports?","Am I investing in joint training or still defaulting to agency-only staff development?"]},
+  {num:3,name:"Information and Data Sharing",group:"gov",governs:"How partners share client information and system-level outcome data within legal frameworks.",categories:["teaming","accountability"],behaviors:["Provide transparent access to available data that assists staff and partners to make informed decisions","Establish communication structures for factual, data-based information to reinforce ICPM values","Share tools, data, and reports among all system partners including tribes, schools, and CBOs","Identify and implement transparent processes to monitor program and organizational effectiveness using aggregate data","Develop communication plan for ongoing dialogue with partners and the whole SOC"],questions:["Am I sharing data to build trust, or withholding it to protect my agency's position?","Do my partners have access to the same information I use to make decisions?","Are we measuring anything together, or only within our own silos?"]},
+  {num:4,name:"Screening, Assessment and Entry to Care",group:"gov",governs:"How youth and families are identified, assessed, and connected to services across agency doors.",categories:["engagement","accountability"],behaviors:["Demonstrate willingness to learn from shared successes and failures by routinely evaluating and revising the MOU","Develop and ensure thoughtful processes to evaluate ICPM implementation and effectiveness of the service process","Ensure collaborative team-based processes monitor equitable access and address disproportionality","Be transparent with staff and partners about what can or cannot be accomplished, and why"],questions:["Does a family's experience change based on which agency door they walk through — or is the system seamless?","Are we using the CANS as a communication tool across partners, or is it a compliance checkbox within each agency?","Am I monitoring whether our screening processes create barriers or remove them?"]},
+  {num:5,name:"Child and Family Teaming (CFT)",group:"gov",governs:"How the team wraps around a specific child and family — who's at the table, how often, single plan.",categories:["engagement","teaming"],behaviors:["Collaboratively develop policies and processes that facilitate teaming within and across organizations","Ensure and promote strong relationships between county departments, COE, schools, tribes, and community providers","Acknowledge emotional content when listening to others implementing the ICPM — demonstrate non-judgmental understanding","Seek first to genuinely understand their perspective before asserting your own","Model a strengths-based communication approach to motivate and recognize efforts"],questions:["Is there one team and one plan per family — or are parallel processes fragmenting the experience?","Am I ensuring my agency's staff show up to CFTs as collaborative partners, not as representatives defending agency positions?","Do families have genuine voice, or do we run the meeting and ask them to confirm?"]},
+  {num:6,name:"Interagency Placement Committee (IPC)",group:"gov",governs:"Multi-agency body that reviews placement decisions for high-needs youth.",categories:["teaming","accountability"],behaviors:["Ensure IPC process demonstrates a celebratory, strengths and assets-based approach, including culturally aligned resources as options to congregate care","Consider how IPC can be used by all SOC partners to make resources available, coordinate care, and align services keeping children at home and in school","Using ILT processes and IPC outcomes, implement transparent monitoring of practice model fidelity and service effectiveness across the system","Recognize that challenges presented by partners often reflect unmet agency needs — your resources may help"],questions:["Does our IPC celebrate strengths and explore every alternative before congregate placement — or is it a rubber stamp?","Are IPC patterns and outcomes being reported back to the ILT to inform system-level decisions?","When a partner presents a challenge in IPC, do I hear it as their problem or as our system's unmet need?"]},
+  {num:7,name:"Alignment and Coordination of Services",group:"ops",governs:"How partners ensure referrals, transitions, and care coordination work across agency boundaries.",categories:["teaming","accountability"],behaviors:["Ensure service delivery across partnerships is aligned, including in court reports and documentation, as result of strong communication and pre-work with youth, parents, tribes, and providers","Consistently monitor challenges and successes","Make regular use of opportunities to establish awareness and support with other divisions within your agency (fiscal, HR, etc.) to align their work to ICPM implementation"],questions:["When a youth transitions between agencies or service settings, is the handoff seamless or does the family have to start over?","Do I know how long referrals take to process in our system — and does that data get shared with the ILT?","Have I aligned my own agency's internal divisions (fiscal, HR) to support the system's goals, not just my agency's?"]},
+  {num:8,name:"Staff Recruitment, Training and Coaching",group:"ops",governs:"How partners share human capital — joint training, cross-agency recruitment, coaching.",categories:["engagement","accountability"],behaviors:["Demonstrate commitment to professional development supporting integrated practice principles","Include expectations for field-based observation by supervisors to ensure coaching and on-the-job training","Seek to ensure mistakes are seen as learning opportunities — staff can take reasonable risks without fear of reprisal","Support development of integrated training curricula; resist silo-based staff development","Provide opportunities for leaders and staff to demonstrate skills to wider audiences — mentoring new peers to the practice model"],questions:["Am I training my staff inside my silo, or am I investing in cross-system learning experiences?","Do my staff know their counterparts in partner agencies by name — not just by role?","When we recruit, do we value cross-system experience and collaboration skills, or only discipline-specific expertise?"]},
+  {num:9,name:"Financial Resource Management",group:"ops",governs:"How partners share, leverage, and coordinate funding across the system.",categories:["teaming","accountability"],behaviors:["Demonstrate willingness to share resources and responsibility for all youth, regardless of legal responsibility","With the ILT, develop measurable plans to realign existing resources to support the system as a whole","Ensure key components of existing and new initiatives are congruent with and integrated into ICPM planning","Recognize that challenges from partners often reflect unmet agency needs — your department's resources may be useful to meet shared objectives"],questions:["Am I sharing funding information proactively with partners, or only when asked?","When a grant opportunity appears, is my first instinct to apply alone or to bring partners into the application?","Do I see my budget as my agency's resource or as part of the system's shared capacity?"]},
+  {num:10,name:"Dispute Resolution",group:"ops",governs:"How partners solve problems — tiered process from collaboration through consensus to vote.",categories:["engagement","accountability"],behaviors:["Use the dispute resolution processes within the MOU to solve shared challenges, collaboratively and respectfully","Be authentic in interactions — do not distance yourself from decisions by referring to them as 'the department's' decision","Communicate without blame or shame, recognizing that most often people do their best","Manage complaints and problems in a transparent and timely process of inquiry that includes listening to those involved","Seek to understand what went wrong so steps can be taken to learn what might work better"],questions:["When a dispute arises, is my instinct to resolve it within my chain of command or to bring it to the ILT as a shared problem?","Do I own my decisions publicly, or do I hide behind 'the department said'?","Am I treating disagreements as system failures or as opportunities for the partnership to get stronger?"]},
+  {num:11,name:"Resource Families and Therapeutic Foster Care",group:"ops",governs:"How partners collectively recruit, support, and develop family-based care options.",categories:["teaming","accountability"],behaviors:["Value community assets by utilizing contracted service providers aligned with ICPM practices, including tribal and culturally specific providers","Specific to tribes, ensure formal and informal partnerships that honor and utilize the resources and strengths of their culture","Ensure management staff regularly meet with Juvenile Court to raise awareness of the ICPM and identify actions to support implementation"],questions:["Do all partners see resource family development as a shared responsibility — or is it still 'child welfare's job'?","Are tribal and culturally specific placement options being actively developed, or are they an afterthought when mainstream options run out?","Is my agency contributing to recruitment efforts, or waiting for CWS to solve the placement shortage alone?"]}
+];
+
+const TRIBAL = {num:"✦",name:"Tribal Engagement",governs:"How the system engages tribal communities across all elements — not just as ILT members.",categories:["engagement","teaming"],behaviors:["Demonstrate respect and deference to Tribal and community leaders, recognizing the knowledge and wisdom they offer","Specific to but not limited to tribes, require, ensure and support formal and informal partnerships that result in alignment with tribal preferences and honor their culture","Engage stakeholders, including tribes, in data collection and evaluation efforts","Include capture and monitoring of data to ensure compliance with required active efforts regarding Indian children"],questions:["Is tribal engagement a line item in each MOU section — or just a seat at the ILT table?","Have I asked our tribal partner how they want to be engaged, or have I assumed our existing process works for them?","Am I treating tribal engagement as compliance or as genuine partnership?"]};
+
+const BADGE_CLASSES = {engagement:"badge-engagement",teaming:"badge-teaming",accountability:"badge-accountability"};
+const BADGE_LABELS = {engagement:"ENGAGEMENT",teaming:"TEAMING",accountability:"ACCOUNTABILITY"};
+
+const chevronSVG = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>';
+const heartSVG = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>';
+const checkSVG = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+
+function buildCard(el, delay) {
+  const badges = el.categories.map(c => `<span class="badge ${BADGE_CLASSES[c]}">${BADGE_LABELS[c]}</span>`).join('');
+  const behaviors = el.behaviors.map(b => `<li>${b}</li>`).join('');
+  const questions = el.questions.map(q => `<p>${q}</p>`).join('');
+  return `<div class="card" style="animation-delay:${delay}ms" onclick="this.classList.toggle('open')">
+    <div class="card-header">
+      <span class="card-num serif">${el.num}</span>
+      <div class="card-body">
+        <div class="card-title serif">${el.name}</div>
+        <div class="card-governs">${el.governs}</div>
+        <div class="card-badges">${badges}</div>
+      </div>
+      <span class="card-chevron">${chevronSVG}</span>
+    </div>
+    <div class="card-detail" onclick="event.stopPropagation()">
+      <div><div class="detail-label">ICPM Leadership Behaviors Activated</div>
+      <ul class="behavior-list">${behaviors}</ul></div>
+      <div class="question-box">
+        <div class="detail-label">${heartSVG} The Leader's Question</div>
+        ${questions}
+      </div>
+    </div>
+  </div>`;
+}
+
+// Build tabs
+const tabBar = document.getElementById('tabBar');
+TABS.forEach((t, i) => {
+  const btn = document.createElement('button');
+  btn.className = 'tab-btn' + (i === 0 ? ' active' : '');
+  btn.textContent = t;
+  btn.addEventListener('click', () => switchTab(i));
+  tabBar.appendChild(btn);
+});
+
+function switchTab(idx) {
+  document.querySelectorAll('.tab-btn').forEach((b, i) => b.classList.toggle('active', i === idx));
+  document.querySelectorAll('.tab-panel').forEach((p, i) => p.classList.toggle('active', i === idx));
+  if (idx === 4) updateCounter();
+}
+
+// Build governance cards
+document.getElementById('govCards').innerHTML = ELEMENTS.filter(e => e.group === 'gov').map((el, i) => buildCard(el, i * 60)).join('');
+
+// Build operational cards
+document.getElementById('opsCards').innerHTML = ELEMENTS.filter(e => e.group === 'ops').map((el, i) => buildCard(el, i * 60)).join('');
+
+// Build cross-cutting card
+document.getElementById('crossCard').innerHTML = `<div style="max-width:720px;margin:0 auto">${buildCard(TRIBAL, 0)}</div>`;
+
+// Build self-assessment
+const allSA = [...ELEMENTS, {num:"✦", name:"Tribal Engagement (Cross-Cutting)", ...TRIBAL}];
+let totalQ = 0;
+const saHTML = allSA.map(el => {
+  const items = el.questions.map((q, qi) => {
+    const id = `sa-${el.num}-${qi}`;
+    totalQ++;
+    return `<div class="sa-item" id="${id}" onclick="toggleSA('${id}')">
+      <span class="sa-check">${checkSVG}</span>
+      <span class="sa-text">${q}</span>
+    </div>`;
+  }).join('');
+  return `<div class="sa-group">
+    <div class="sa-group-title serif"><span class="sa-group-num">${el.num}</span>${el.name}</div>
+    ${items}
+  </div>`;
+}).join('');
+document.getElementById('saGroups').innerHTML = saHTML;
+
+const checkedItems = new Set();
+function toggleSA(id) {
+  const el = document.getElementById(id);
+  if (checkedItems.has(id)) { checkedItems.delete(id); el.classList.remove('checked'); }
+  else { checkedItems.add(id); el.classList.add('checked'); }
+  updateCounter();
+}
+function updateCounter() {
+  const counter = document.getElementById('saCounter');
+  const n = checkedItems.size;
+  counter.textContent = `${n} / ${totalQ} affirmed`;
+  counter.style.background = n === totalQ ? 'var(--green-50)' : 'var(--slate-100)';
+  counter.style.color = n === totalQ ? 'var(--green-800)' : '#475569';
+}
+updateCounter();
+</script>
+</body>
+</html>
